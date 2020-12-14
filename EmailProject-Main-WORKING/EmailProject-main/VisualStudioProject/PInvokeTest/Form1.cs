@@ -19,24 +19,6 @@ namespace PInvokeTest
             InitializeComponent();
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("stagger?");
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -57,38 +39,38 @@ namespace PInvokeTest
                 string text = @messagetxtbox.Text;
                 string domain = to.Substring(to.LastIndexOf('@') + 1); //Takes everything to the right of @
 
-                if (domain.Equals("wemail.com", StringComparison.OrdinalIgnoreCase))
+                message.Subject = subject;
+                message.Body = text;
+
+
+
+            if (domain.Equals("wemail.com", StringComparison.OrdinalIgnoreCase))
                 {
-                    SendMail.Wemailtransfer(Sender,Recipient,subject,text);
+                    SendMail.Wemailtransfer(Sender,Recipient,message);
                 }
                 else
                 {
-                    SendMail.Regular(Sender,Recipient,subject,text);
+                    SendMail.Regular(Sender,Recipient,message);
                 }
-        }
-        private void label4_Click(object sender, EventArgs e)
-        {
-
         }
     }
     public class SendMail
     {
         static string server = "mail.smtp2go.com"; //Current SMTP server. Coupled to IP
-        public static void Regular(MailAddress Sender, MailAddress Recipient, string subject, string text)
+        public static void Regular(MailAddress Sender, MailAddress Recipient, MailMessage message)
         {
-            MailMessage message = new MailMessage(Sender, Recipient);
             SmtpClient client = new SmtpClient(server);
             client.Send(message);
             MessageBox.Show("Email Sent!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        public static void Wemailtransfer(MailAddress Sender,MailAddress Recipient, string subject, string text)
+
+
+        public static void Wemailtransfer(MailAddress Sender,MailAddress Recipient, MailMessage message)
         {
             char DL = '';
             try
             {
-                MailMessage message = new MailMessage(Sender, Recipient);
-                message.Subject = subject;
-                message.Body = text;
+
                 //MessageBox.Show("You're sending to a Wemail account", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 const int PORT_NO = 5000;
                 const string LOCALHOST = "127.0.0.1";
@@ -112,9 +94,9 @@ namespace PInvokeTest
                 ExceptionHandler.SendMailException(ex);
             }
         }
-        public static void Forward()
+        public static void Forward(MailMessage message)
         {
-            //
+            //message.
         }
         public static void Reply()
         {
@@ -126,7 +108,7 @@ namespace PInvokeTest
         public static void SendMailException(Exception ex)
         {
             MessageBoxButtons buttons = MessageBoxButtons.RetryCancel;
-            MessageBox.Show(ex.ToString(), "error", buttons, MessageBoxIcon.Warning);
+            MessageBox.Show(ex.ToString(), "Error sending mail", buttons, MessageBoxIcon.Warning);
         }
     }
 }

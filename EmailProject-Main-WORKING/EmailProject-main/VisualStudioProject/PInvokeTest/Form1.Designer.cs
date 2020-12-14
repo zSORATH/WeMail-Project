@@ -75,7 +75,6 @@
             this.RecipientLBL.Size = new System.Drawing.Size(114, 25);
             this.RecipientLBL.TabIndex = 5;
             this.RecipientLBL.Text = "Recipient:";
-            this.RecipientLBL.Click += new System.EventHandler(this.label4_Click);
             // 
             // SubjectLBL
             // 
@@ -134,15 +133,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox reciptxtbox;
         private System.Windows.Forms.TextBox subjecttxtbox;
